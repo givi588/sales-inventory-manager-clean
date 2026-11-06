@@ -2,7 +2,7 @@
 
 A browser-based application for tracking products, stock levels, and sales using HTML, CSS, and vanilla JavaScript. All application data stays in the browser; no account or backend is required.
 
-**[Live application](https://givi588.github.io/sales-inventory-manager/)** · **[Source code](https://github.com/givi588/sales-inventory-manager)**
+**[Live application](https://givi588.github.io/sales-inventory-manager-clean/)** · **[Source code](https://github.com/givi588/sales-inventory-manager-clean)**
 
 ## Features
 
@@ -64,7 +64,7 @@ node --check script.js
 node --test tests/data.test.cjs
 ```
 
-The test suite contains 26 Node.js business-logic checks. GitHub Actions runs the syntax checks and tests on pushes and pull requests. See [the workflow results](https://github.com/givi588/sales-inventory-manager/actions) and [manual verification checklist](TESTING.md) for coverage and limitations.
+The test suite contains 26 Node.js business-logic checks. GitHub Actions runs the syntax checks and tests on pushes and pull requests. See [the workflow results](https://github.com/givi588/sales-inventory-manager-clean/actions) and [manual verification checklist](TESTING.md) for coverage and limitations.
 
 ## Deployment
 
