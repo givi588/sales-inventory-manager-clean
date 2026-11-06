@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A browser-based sales and inventory tracker with local backups.">
+  <title>Sales & Inventory Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to dashboard</a>
+  <main id="main-content" class="container">
+    <header class="panel header">
+      <div>
+        <p class="eyebrow">Local business tools</p>
+        <h1>Sales & Inventory Manager</h1>
+        <p class="muted">Manage stock, record sales and export your reports.</p>
+      </div>
+      <span class="local-note">Data stays in this browser</span>
+    </header>
+    <p id="storage-message" class="status error" role="alert"></p>
+
+    <section class="panel" aria-labelledby="overview-title">
+      <h2 id="overview-title">Overview</h2>
+      <div class="stats">
+        <div class="stat"><span>Products</span><strong id="stat-products">0</strong></div>
+        <div class="stat"><span>Units in stock</span><strong id="stat-units">0</strong></div>
+        <div class="stat"><span>Inventory value</span><strong id="stat-stock">$0.00</strong></div>
+        <div class="stat"><span>Low stock (≤5)</span><strong id="stat-low">0</strong></div>
+        <div class="stat"><span>Recorded sales</span><strong id="stat-sales">0</strong></div>
+        <div class="stat"><span>Total revenue</span><strong id="stat-revenue">$0.00</strong></div>
+      </div>
+    </section>
+
+    <div class="workspace">
+      <section class="panel" aria-labelledby="inventory-title">
+        <div class="heading-line"><h2 id="inventory-title">Inventory</h2><span id="product-count" class="muted small"></span></div>
+        <div class="toolbar">
+          <div><label for="product-search">Search products</label><input type="search" id="product-search" placeholder="Search by name" autocomplete="off"></div>
+          <div><label for="product-sort">Sort by</label><select id="product-sort">
+            <option value="default">Order added</option>
+            <option value="name">Name (A–Z)</option>
+            <option value="price-high">Price (high to low)</option>
+            <option value="quantity-low">Quantity (low to high)</option>
+          </select></div>
+        </div>
+        <ul id="product-list" class="inventory-list" aria-label="Saved products"></ul>
+        <p id="empty-state" class="muted">No products yet.</p>
+        <p class="summary" id="total-value">Total inventory value: $0.00</p>
+      </section>
+
+      <section class="panel" aria-labelledby="editor-heading">
+        <h2 id="editor-heading">Add a product</h2>
+        <p class="muted small">Prices are sale prices; the report does not calculate profit.</p>
+        <form id="product-form" novalidate>
+          <div class="field"><label for="product-name">Product name</label><input id="product-name" type="text" maxlength="50" required autocomplete="off"></div>
+          <div class="field"><label for="product-price">Price ($)</label><input id="product-price" type="number" min="0" max="100000" step="0.01" required></div>
+          <div class="field"><label for="product-quantity">Quantity</label><input id="product-quantity" type="number" min="0" max="10000" step="1" required></div>
+          <div class="actions"><button type="submit" id="save-product">Add product</button><button type="button" id="cancel-edit" class="secondary hidden">Cancel edit</button></div>
+          <p id="form-message" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+
+    <section class="panel" aria-labelledby="sales-title">
+      <div class="heading-line"><h2 id="sales-title">Sales history</h2><span id="sales-count" class="muted small"></span></div>
+      <p class="muted small">A sale is recorded when you select Sell 1. Most recent 30 shown.</p>
+      <ul id="sales-list" class="sales-list" aria-label="Recorded sales"></ul>
+      <p id="sales-empty" class="muted">No sales recorded yet.</p>
+      <p class="summary" id="sales-total">Total revenue: $0.00</p>
+      <h3>Revenue by product</h3>
+      <div id="sales-chart" class="bars" aria-label="Revenue breakdown by product"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="data-title">
+      <h2 id="data-title">Reports & backup</h2>
+      <p class="muted small">CSV files are spreadsheet reports. JSON is the exact backup of products and recorded sales.</p>
+      <div class="actions">
+        <button type="button" id="export-inventory" class="secondary">Export inventory CSV</button>
+        <button type="button" id="export-sales" class="secondary">Export sales CSV</button>
+        <button type="button" id="export-json">Back up JSON</button>
+        <button type="button" id="import-json" class="secondary">Restore JSON</button>
+        <button type="button" id="download-raw" class="secondary hidden">Download raw data</button>
+        <input id="backup-file" class="visually-hidden" type="file" accept=".json,application/json" aria-label="Choose a JSON backup file">
+      </div>
+      <p id="backup-message" class="status" role="status" aria-live="polite"></p>
+      <p class="muted small">Restore replaces both lists only after validating your file and asking for confirmation. Back up your current data first.</p>
+    </section>
+
+    <footer>Built with HTML, CSS and JavaScript. No accounts, cloud sync or external services.</footer>
+  </main>
+</body>
+</html>
